@@ -1,17 +1,17 @@
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
 
 namespace SeleniumTestsOnContainers
 {
-    [TestClass]
+    [TestFixture]
     public class SeleniumTests
     {
         private RemoteWebDriver _driver;
         public TestContext TestContext { get; set; }
 
-        [TestInitialize]
+        [SetUp]
         public void TestInitialize()
         {
             var options = new ChromeOptions();
@@ -22,18 +22,23 @@ namespace SeleniumTestsOnContainers
 
             // To run tests on your local machine web driver
             // var driver = new ChromeDriver("../../../chromedriver78/", options);
-            var remoteWebDriverUrl = TestContext.Properties["remoteWebDriverUrl"] as string;
-            _driver = new RemoteWebDriver(new Uri(remoteWebDriverUrl), options);
+            // var remoteWebDriverUrl = (string)TestContext.Properties["remoteWebDriverUrl"];
+
+            //var remoteWebDriverUrl = "http://localhost:4444/wd/hub";
+            //_driver = new RemoteWebDriver(new Uri(remoteWebDriverUrl), options);
+
+            _driver = new ChromeDriver(PathHelper.CurrentAssemblyPath, options, TimeSpan.FromMinutes(6));
         }
 
-        [TestMethod]
+        [Test]
         public void PageLive_Test()
         {
             _driver.Manage().Window.Maximize();
-            _driver.Navigate().GoToUrl("https://www.youtube.com/houssemdellai");
+            //_driver.Navigate().GoToUrl("https://www.youtube.com/houssemdellai");
+            _driver.Navigate().GoToUrl("https://www.google.ca");
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
 
-            Assert.IsTrue(_driver.PageSource.Contains("Houssem Dellai"));
+            Assert.IsTrue(_driver.PageSource.Contains("About"));
         }
     }
 }
