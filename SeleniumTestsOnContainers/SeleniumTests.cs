@@ -24,10 +24,10 @@ namespace SeleniumTestsOnContainers
             // var driver = new ChromeDriver("../../../chromedriver78/", options);
             // var remoteWebDriverUrl = (string)TestContext.Properties["remoteWebDriverUrl"];
 
-            //var remoteWebDriverUrl = "http://localhost:4444/wd/hub";
-            //_driver = new RemoteWebDriver(new Uri(remoteWebDriverUrl), options);
+            var remoteWebDriverUrl = "http://localhost:4444/wd/hub";
+            _driver = new RemoteWebDriver(new Uri(remoteWebDriverUrl), options);
 
-            _driver = new ChromeDriver(PathHelper.CurrentAssemblyPath, options, TimeSpan.FromMinutes(6));
+            //_driver = new ChromeDriver(PathHelper.CurrentAssemblyPath, options, TimeSpan.FromMinutes(6));
         }
 
         [Test]
